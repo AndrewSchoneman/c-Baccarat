@@ -197,23 +197,15 @@ void Game::checkInitial()
 	if ((user.getValue() == 8 || user.getValue() == 9) &&
 		(dealer.getValue() == 8 || dealer.getValue()) == 9)
 	{
-		cout << "The game has tied" << endl;
-		cout << "Dealer: " << user.getValue() << " " << "User: " << user.getValue() << endl;
-		tieGame();
-		playAgain();
+		tieGameOutcome();
 	}
 	else if (user.getValue() == 8 || user.getValue() == 9)
 	{
-		cout << "The Player has won" << endl;
-		cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
-		playerWin();
-		playAgain();
+		playerWinOutcome();
 	}
 	else if (dealer.getValue() == 8 || dealer.getValue() == 9)
 	{
-		cout << "The Dealer has won" << endl;
-		cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
-		playAgain();
+		dealerwinOutcome();
 	}
 	else 
 	{
@@ -233,63 +225,54 @@ void Game::tableau()
 	if (user.hasThreeCards()) {
 		if (dealer.getValue() <= 2)
 		{
-			deck.dealCard();
-			dealer.addToHand(deck.dealCard());
-			cout << "Dealing to Dealer..........\n\n";
+			dealToDealer();
 		}
 		else if (user.thirdCardVal() != 8 && dealer.getValue() == 3)
 		{
-			deck.dealCard();
-			dealer.addToHand(deck.dealCard());
-			cout << "Dealing to Dealer..........\n\n";
+			dealToDealer();
 		}
 		else if ( user.thirdCardVal() >= 2 && user.thirdCardVal() <= 7 
 					&& dealer.getValue() == 4)
 		{
-			deck.dealCard();
-			dealer.addToHand(deck.dealCard());
-			cout << "Dealing to Dealer..........\n\n";
+			dealToDealer();
 		}
 		else if (user.thirdCardVal() >= 4 && user.thirdCardVal() <= 7 
 					&& dealer.getValue() == 5)
 		{
-			deck.dealCard();
-			dealer.addToHand(deck.dealCard());
-			cout << "Dealing to Dealer..........\n\n";
+			dealToDealer();
 		}
 		else if (user.thirdCardVal() != 6 && user.thirdCardVal() != 7
 			&& dealer.getValue() == 6)
 		{
-			deck.dealCard();
-			dealer.addToHand(deck.dealCard());
-			cout << "Dealing to Dealer..........\n\n";
+			dealToDealer();
 		}
 	}
 	user.showHand();
 	dealer.showHand();
 	checkWin();
 }
+void Game::dealToDealer()
+{
+	deck.dealCard();
+	dealer.addToHand(deck.dealCard());
+	cout << "Dealing to Dealer..........\n\n";
+}
 
 void Game::checkWin()
 {
 	if (user.getValue() ==  dealer.getValue())
 	{
-		cout << "The game has tied" << endl;
-		cout << "Dealer: " << user.getValue() << " " << "User: " << user.getValue() << endl;
-		tieGame();
+		tieGameOutcome();
 	}
 	else if (user.getValue() > dealer.getValue())
 	{
-		cout << "The Player has won" << endl;
-		cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
-		playerWin();
+		playerWinOutcome();
+		
 	}
 	else
 	{
-		cout << "The Dealer has won" << endl;
-		cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
+		dealerwinOutcome();
 	}
-	playAgain();
 }
 void Game::playAgain() 
 {
@@ -353,6 +336,26 @@ void Game::placeBet()
 			}
 		}
 	}
+}
+void Game::tieGameOutcome()
+{
+	cout << "The game has tied" << endl;
+	cout << "Dealer: " << user.getValue() << " " << "User: " << user.getValue() << endl;
+	tieGame();
+	playAgain();
+}
+void Game::dealerwinOutcome()
+{
+	cout << "The Dealer has won" << endl;
+	cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
+	playAgain();
+}
+void Game::playerWinOutcome()
+{
+	cout << "The Player has won" << endl;
+	cout << "Dealer: " << dealer.getValue() << " " << "User: " << user.getValue() << endl;
+	playerWin();
+	playAgain();
 }
 
 void Game::resetHands()

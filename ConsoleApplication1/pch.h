@@ -77,8 +77,12 @@ class Game
 		void tableau();
 		void checkWin();
 		void playAgain();
+		void dealToDealer();
 		void placeBet();
 		void playerWin();
+		void playerWinOutcome();
+		void dealerwinOutcome();
+		void tieGameOutcome();
 		void tieGame();
 		void gameOver();
 		void resetHands();
